@@ -46,7 +46,8 @@ Key Steps for Task Creation:
 
 class TravelTasks:
     def __tip_section(self):
-        return "If you do your BEST WORK, I'll give you a $10,000 commission!"
+        return f"""Answer the following question with information derived from reliable and reputable sources.
+              Please prioritize facts and avoid unsupported speculation or 'hallucinated' information !"""
 
     def plan_itinerary(self, agent, city, travel_dates, interests):
         return Task(

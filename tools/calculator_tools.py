@@ -11,7 +11,7 @@ class CalculatorTools():
         expression, a couple examples are `200*7` or `5000/2*10`
         """
         try:
-            return eval(operation)
+            return eval(operation) # type: ignore
         except SyntaxError:
             return "Error: Invalid syntax in mathematical expression"
 

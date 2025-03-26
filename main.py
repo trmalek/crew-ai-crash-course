@@ -1,10 +1,12 @@
+import sys
 from crewai import Crew
 from textwrap import dedent
 from agents import TravelAgents
 from tasks import TravelTasks
 from dotenv import load_dotenv
-load_dotenv()
+import datetime
 
+load_dotenv()
 
 class TripCrew:
     def __init__(self, origin, cities, date_range, interests):
@@ -85,9 +87,23 @@ if __name__ == "__main__":
       What are some of your high level interests and hobbies?
     """))
 
+    # Generate unique filename
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    file_name = f"trip_plan_{timestamp}.md"
+
     trip_crew = TripCrew(origin, cities, date_range, interests)
     result = trip_crew.run()
-    print("\n\n########################")
-    print("## Here is you Trip Plan")
-    print("########################\n")
-    print(result)
+    # Content to be writed in markdown file
+    markdown_content = f"""
+    ########################
+    ## Here is your Trip Plan
+    ########################
+
+    {result}
+    """
+
+    # Write content generated in file
+    with open(file_name, "w") as f:
+        f.write(markdown_content)
+
+    print(f"Trip plan saved to {file_name}")

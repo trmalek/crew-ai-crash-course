@@ -1,3 +1,4 @@
+import os
 from crewai import Agent
 from textwrap import dedent
 from langchain_groq import ChatGroq
@@ -35,11 +36,12 @@ Notes:
 
 class TravelAgents:
     def __init__(self):
-        self.ChatGroq = ChatGroq(model="deepseek-r1-distill-qwen-32b", temperature=0.7)  # Utilisation du modèle ChatGroq
+        self.ChatGroq = ChatGroq(model=os.environ['LLM_MODEL_NAME'], temperature=0.8)  # Utilisation du modèle ChatGroq
 
     def expert_travel_agent(self):
         return Agent(
             role="Expert Travel Agent",
+            memory=True,
             backstory=dedent(
                 f"""Expert in travel planning and logistics. 
                 I have decades of expereince making travel iteneraries."""),
@@ -64,6 +66,7 @@ class TravelAgents:
                 f"""Select the best cities based on weather, season, prices, and traveler interests"""),
             tools=[SearchTools.search_internet],
             verbose=True,
+            memory=True,
             llm=self.ChatGroq,
         )
 
@@ -76,5 +79,6 @@ class TravelAgents:
                 f"""Provide the BEST insights about the selected city"""),
             tools=[SearchTools.search_internet],
             verbose=True,
+            memory=True,
             llm=self.ChatGroq,
         )
